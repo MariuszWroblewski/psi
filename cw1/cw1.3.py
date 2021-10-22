@@ -1,0 +1,7 @@
+print("test")
+print('{:^10}'.format('test'))
+print('{:>10}'.format('test'))
+print('{:+d}'.format(42))
+print('{:=5d}'.format((- 23)))
+print('{:=44d}'.format((- 23)))
+print('{}                    {}'.format(1, 2))
