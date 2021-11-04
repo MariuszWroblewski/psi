@@ -14,7 +14,7 @@
 # print("W tekscie jest %i liter %s oraz %i liter %s" % (liczba_liter1, nazwisko[2], liczba_liter2, imie[1]))
 #
 # 3
-# # In file cw1.3
+# In file cw1.3
 #
 # 4
 # print(dir(lorem))
@@ -75,86 +75,8 @@
 #     print(i)
 #
 # 13
-
 # d1 = {"Mariusz": 5, "Jan": 3, "Dominik": 4.5, "Maria": 2}
 # d2 = {"Polska": "Warszawa", "Rosja": "Moskwa", "Niemcy": "Berlin", "Czechy": "Praga"}
 # d3 = {"s": "small", "m": "medium", "l": "large"}
 # lista = [d1, d2, d3]
-# print(lista[0].f)
-
-
-
-#CW2
-#1
-# listaa = [1, 2, 3, 4, 5, 6]
-# listab = [10, 12, 13, 14, 15, 16]
-
-
-# def f(a_list, b_list):
-#     c_list = a_list[0::2] + b_list[1::2]
-#     print(c_list)
-#
-#
-# f(listaa, listab)
-#
-#2
-# text = "Tekstowy tekst"
-#
-#
-# def f(data_text):
-#     d = {"length: ": len(data_text), "letters: ": list(data_text),
-#          "big_letters: ": data_text.upper(), "small_letters: ": data_text.lower()}
-#     for key, value in d.items():
-#         print(key, ' : ', value)
-#
-#
-# f(text)
-
-#3
-# def f(tekst, letter):
-#     for i in tekst:
-#         a = tekst.replace(letter, "")
-#     print(a)
-#
-#
-# f(text, "t")
-
-
-#4
-
-#5
-# class Calculator:
-#     def add(self, a, b):
-#         print(a+b)
-#
-#     def difference(self, a, b):
-#         print(a-b)
-#
-#     def multiply(self, a, b):
-#         print(a * b)
-#
-#     def divide(self, a, b):
-#         if b != 0:
-#             print(a/b)
-#         else:
-#             print("Nie dziel przez zero")
-#
-#
-# kalkulator = Calculator()
-# kalkulator.multiply(3, 4)
-
-#6
-# class ScienceCalculator(Calculator):
-#     def pow(self, a, b):
-#         print(pow(a, b))
-#
-#
-# kalkulator2 = ScienceCalculator()
-# kalkulator2.pow(2, 2)
-
-
-#7
-# def f(text):
-#     print(text[::-1])
-#
-# f("koteł")
+# print("\n".join("{}\t{}".format(k, v) for i in range(3) for k, v in lista[i].items()))
