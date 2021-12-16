@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 
 class Uczestnik(models.Model):
-    imie = models.CharField(max_length=45)
-    nazwisko = models.CharField(max_length=45)
+    imie = models.CharField(max_length=45, on_delete=models.SET_NULL(), null=True)
+    nazwisko = models.CharField(max_length=45, on_delete=models.SET_NULL(), null=True)
     nr_tel = models.IntegerField()
     nr_email = models.CharField(max_length=45)
 
@@ -30,8 +30,8 @@ class Turniej(models.Model):
 
 class Rozgrywka(models.Model):
     turniej = models.ForeignKey(Turniej, on_delete=models.CASCADE)
-    ucz1 = models.ForeignKey(Uczestnik, related_name='id1', on_delete=models.CASCADE)
-    ucz2 = models.ForeignKey(Uczestnik, related_name='id2', on_delete=models.CASCADE)
+    ucz1 = models.ForeignKey(Uczestnik, related_name='id1', on_delete=models.SET_NULL())
+    ucz2 = models.ForeignKey(Uczestnik, related_name='id2', on_delete=models.SET_NULL())
     sedzia = models.ForeignKey(Sedzia, on_delete=models.CASCADE)
     wynik_ucz1 = models.IntegerField()
     wynik_ucz2 = models.IntegerField()
