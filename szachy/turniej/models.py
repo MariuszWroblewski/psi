@@ -27,7 +27,7 @@ class Turniej(models.Model):
     miasto = models.CharField(max_length=45)
     ulica = models.CharField(max_length=45, null=True)
     nr_budynku = models.CharField(max_length=45, null=True)
-    data = models.DateTimeField(null=True)
+    data = models.DateField(null=True)
 
     def __str__(self):
         return self.nazwa
