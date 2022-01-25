@@ -1,6 +1,7 @@
 from rest_framework.validators import UniqueTogetherValidator
 from rest_framework import serializers
 from .models import *
+from datetime import date
 
 
 class TurniejSerializer(serializers.HyperlinkedModelSerializer):
@@ -10,12 +11,22 @@ class TurniejSerializer(serializers.HyperlinkedModelSerializer):
         model = Turniej
         fields = ['url', 'id', 'nazwa', 'miasto', 'ulica', 'nr_budynku', 'data', 'mecze']
 
+    def validate_data(self, data):
+        if data < data.today():
+            raise serializers.ValidationError("Błedna data. Data nie może być wcześniejsza niż obecna")
+        return data
+
 
 class UczestnikSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Uczestnik
         fields = ['url', 'id', 'imie', 'nazwisko', 'nr_tel', 'nr_email', 'wiek']
+
+    def validate_wiek(self, wiek):
+        if wiek < 5 or wiek > 100:
+            raise serializers.ValidationError("Podano blędną wartość. Minimalny wiek to 5 lat, maksymalny 100")
+        return wiek
 
 
 class SedziaSerializer(serializers.HyperlinkedModelSerializer):
@@ -35,3 +46,11 @@ class RozgrywkaSerializer(serializers.HyperlinkedModelSerializer):
         model = Rozgrywka
         fields = ['url', 'id', 'turniej', 'ucz1', 'ucz2', 'sedzia', 'wynik_ucz1', 'wynik_ucz2']
 
+    def validate_wynik_ucz1(self, wynik_ucz1):
+        if wynik_ucz1 < 0 or wynik_ucz1 > 5:
+            raise serializers.ValidationError("Błedny wynik, możliwy wynik jest z zakresu 0-5")
+        return wynik_ucz1
+    def validate_wynik_ucz2(self, wynik_ucz2):
+        if wynik_ucz2 < 0 or wynik_ucz2 > 5:
+            raise serializers.ValidationError("Błedny wynik, możliwy wynik jest z zakresu 0-5")
+        return wynik_ucz2
