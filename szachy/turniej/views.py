@@ -5,6 +5,7 @@ from .serializers import *
 from rest_framework.reverse import reverse
 from rest_framework import permissions
 
+
 class ApiRoot(generics.GenericAPIView):
     name = 'api-root'
 
@@ -53,9 +54,6 @@ class RozgrywkaList(generics.ListCreateAPIView):
     filter_fields = ['ucz1', 'ucz2', 'sedzia']
     ordering_fields = ['ucz1']
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
 
 class RozgrywkaDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
@@ -81,9 +79,6 @@ class UczestnikList(generics.ListCreateAPIView):
     filter_class = UczestnikWiekFilter
     ordering_fields = ['nazwisko', 'wiek']
     search_fields = ['imie', 'nazwisko']
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
 
 class UczestnikDetail(generics.RetrieveUpdateDestroyAPIView):
