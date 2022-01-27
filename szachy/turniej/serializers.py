@@ -6,10 +6,11 @@ from datetime import date
 
 class TurniejSerializer(serializers.HyperlinkedModelSerializer):
     mecze = serializers.HyperlinkedRelatedField(many=True, view_name='rozgrywka-detail', read_only=True)
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Turniej
-        fields = ['url', 'id', 'nazwa', 'miasto', 'ulica', 'nr_budynku', 'data', 'mecze']
+        fields = ['url', 'id', 'nazwa', 'miasto', 'ulica', 'nr_budynku', 'data', 'owner', 'mecze']
 
     def validate_data(self, data):
         if data < date.today():
@@ -18,10 +19,11 @@ class TurniejSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UczestnikSerializer(serializers.HyperlinkedModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Uczestnik
-        fields = ['url', 'id', 'imie', 'nazwisko', 'nr_tel', 'nr_email', 'wiek']
+        fields = ['url', 'id', 'imie', 'nazwisko', 'nr_tel', 'nr_email', 'wiek', 'owner']
 
     def validate_wiek(self, wiek):
         if wiek < 5 or wiek > 100:
@@ -41,10 +43,11 @@ class RozgrywkaSerializer(serializers.HyperlinkedModelSerializer):
     ucz1 = serializers.HyperlinkedRelatedField(queryset=Uczestnik.objects.all(), view_name='uczestnik-detail')
     ucz2 = serializers.HyperlinkedRelatedField(queryset=Uczestnik.objects.all(),view_name='uczestnik-detail')
     sedzia = serializers.HyperlinkedRelatedField(queryset=Sedzia.objects.all(), view_name='sedzia-detail')
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Rozgrywka
-        fields = ['url', 'id', 'turniej', 'ucz1', 'ucz2', 'sedzia', 'wynik_ucz1', 'wynik_ucz2']
+        fields = ['url', 'id', 'turniej', 'ucz1', 'ucz2', 'sedzia', 'wynik_ucz1', 'wynik_ucz2', 'owner']
 
     def validate_wynik_ucz1(self, wynik_ucz1):
         if wynik_ucz1 < 0 or wynik_ucz1 > 5:
