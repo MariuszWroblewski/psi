@@ -50,6 +50,7 @@ class RozgrywkaSerializer(serializers.HyperlinkedModelSerializer):
         if wynik_ucz1 < 0 or wynik_ucz1 > 5:
             raise serializers.ValidationError("Błedny wynik, możliwy wynik jest z zakresu 0-5")
         return wynik_ucz1
+
     def validate_wynik_ucz2(self, wynik_ucz2):
         if wynik_ucz2 < 0 or wynik_ucz2 > 5:
             raise serializers.ValidationError("Błedny wynik, możliwy wynik jest z zakresu 0-5")
