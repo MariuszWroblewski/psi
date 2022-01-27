@@ -11,7 +11,7 @@ class Uczestnik(models.Model):
     wiek = models.IntegerField(null=True)
 
     def __str__(self):
-        return f'{str(self.imie)} {str(self.nazwisko)}'
+        return f'{self.imie} {self.nazwisko}'
 
 
 class Sedzia(models.Model):
@@ -19,7 +19,7 @@ class Sedzia(models.Model):
     nazwisko = models.CharField(max_length=45)
 
     def __str__(self):
-        return f'{str(self.imie)} {str(self.nazwisko)}'
+        return f'{self.imie} {self.nazwisko}'
 
 
 class Turniej(models.Model):
@@ -42,4 +42,4 @@ class Rozgrywka(models.Model):
     wynik_ucz2 = models.IntegerField()
 
     def __str__(self):
-        return f'{str(self.ucz1.imie)} {str(self.ucz1.nazwisko)} vs {str(self.ucz2.imie)} {str(self.ucz2.nazwisko)}'
+        return f'{self.ucz1.imie} {self.ucz1.nazwisko} vs {self.ucz2.imie} {self.ucz2.nazwisko}'
