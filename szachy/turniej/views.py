@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 from .serializers import *
 from rest_framework.reverse import reverse
+from rest_framework import permissions
 
 
 class ApiRoot(generics.GenericAPIView):
@@ -26,20 +27,27 @@ class TurniejDateFilter(FilterSet):
 
 
 class TurniejList(generics.ListCreateAPIView):
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     queryset = Turniej.objects.all()
     serializer_class = TurniejSerializer
     name = 'turniej-list'
     filter_class = TurniejDateFilter
     ordering_fields = ['nazwa']
+    search_fields = ['nazwa']
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class TurniejDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     queryset = Turniej.objects.all()
     serializer_class = TurniejSerializer
     name = 'turniej-detail'
 
 
 class RozgrywkaList(generics.ListCreateAPIView):
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     queryset = Rozgrywka.objects.all()
     serializer_class = RozgrywkaSerializer
     name = 'rozgrywka-list'
@@ -48,6 +56,7 @@ class RozgrywkaList(generics.ListCreateAPIView):
 
 
 class RozgrywkaDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     queryset = Rozgrywka.objects.all()
     serializer_class = RozgrywkaSerializer
     name = 'rozgrywka-detail'
@@ -63,28 +72,34 @@ class UczestnikWiekFilter(FilterSet):
 
 
 class UczestnikList(generics.ListCreateAPIView):
+    permission_classes = [permissions.DjangoModelPermissions]
     queryset = Uczestnik.objects.all()
     serializer_class = UczestnikSerializer
     name = 'uczestnik-list'
     filter_class = UczestnikWiekFilter
     ordering_fields = ['nazwisko', 'wiek']
+    search_fields = ['imie', 'nazwisko']
 
 
 class UczestnikDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.DjangoModelPermissions]
     queryset = Uczestnik.objects.all()
     serializer_class = UczestnikSerializer
     name = 'uczestnik-detail'
 
 
 class SedziaList(generics.ListCreateAPIView):
+    permission_classes = [permissions.DjangoModelPermissions]
     queryset = Sedzia.objects.all()
     serializer_class = SedziaSerializer
     name = 'sedzia-list'
     filter_fields = ['imie', 'nazwisko']
     ordering_fields = ['nazwisko']
+    search_fields = ['imie', 'nazwisko']
 
 
 class SedziaDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [permissions.DjangoModelPermissions]
     queryset = Sedzia.objects.all()
     serializer_class = SedziaSerializer
     name = 'sedzia-detail'

@@ -1,9 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 
 urlpatterns = [
     path('', views.ApiRoot.as_view(), name=views.ApiRoot.name),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('turnieje', views.TurniejList.as_view(), name=views.TurniejList.name),
     path('turnieje/<int:pk>', views.TurniejDetail.as_view(), name=views.TurniejDetail.name),
     path('rozgrywki', views.RozgrywkaList.as_view(), name=views.RozgrywkaList.name),
